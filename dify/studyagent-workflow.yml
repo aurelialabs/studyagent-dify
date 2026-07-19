@@ -1,0 +1,846 @@
+app:
+  description: 面向备考的学生的教材复习智能体，支持基于教材章节内容自动生成知识框架、重难点分析、背诵笔记、自测题和阶段复习计划。
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: 考途 StudyAgent｜备考教材重难点梳理智能体
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.19@5b68617c637b62d31e7f33a9f5677b76e88f81868fb04a728e208588564b72ea
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1783324883389-source-1783325494248-target
+      selected: false
+      source: '1783324883389'
+      sourceHandle: source
+      target: '1783325494248'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1783325494248-source-1783325724506-target
+      selected: false
+      source: '1783325494248'
+      sourceHandle: source
+      target: '1783325724506'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1783325724506-source-1783325812077-target
+      selected: false
+      source: '1783325724506'
+      sourceHandle: source
+      target: '1783325812077'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1783325985478-source-1783327878454-target
+      selected: false
+      source: '1783325985478'
+      sourceHandle: source
+      target: '1783327878454'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1783325812077-source-1784366915050-target
+      selected: false
+      source: '1783325812077'
+      sourceHandle: source
+      target: '1784366915050'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1784366915050-source-1783325985478-target
+      selected: false
+      source: '1784366915050'
+      sourceHandle: source
+      target: '1783325985478'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1783323231752-source-1784432146276-target
+      source: '1783323231752'
+      sourceHandle: source
+      target: '1784432146276'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1784432146276-source-1783324883389-target
+      source: '1784432146276'
+      sourceHandle: source
+      target: '1783324883389'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hide: false
+          hint: ''
+          label: 上传教材文件（Word/PDF）
+          max_length: 8000
+          options: []
+          placeholder: ''
+          required: false
+          type: file
+          variable: study_file
+        - default: 考研
+          hint: ''
+          label: 考试类型
+          max_length: 50
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: exam_type
+        - default: 教育学
+          hint: ''
+          label: 科目名称
+          max_length: 50
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: subject
+        - default: ''
+          hint: ''
+          label: 教材/书名
+          max_length: 100
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: book_name
+        - default: ''
+          hint: ''
+          label: 章节标题
+          max_length: 100
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: chapter_title
+        - default: 一般
+          hint: ''
+          label: 当前基础
+          max_length: 20
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: current_level
+        - default: 2小时
+          hint: ''
+          label: 每日可用时间
+          max_length: 20
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: daily_time
+        - default: 7天
+          hint: ''
+          label: 复习周期
+          max_length: 20
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: review_period
+        - default: ''
+          hint: ''
+          label: 教材内容/章节正文（不上传文件时填写）
+          max_length: 8000
+          options: []
+          placeholder: ''
+          required: false
+          type: paragraph
+          variable: chapter_text
+        - default: 指定章节
+          hint: ''
+          label: 学习范围
+          options:
+          - 整本书
+          - 指定章节
+          - 指定页码/范围
+          placeholder: ''
+          required: true
+          type: select
+          variable: study_scope
+        - default: 例如：第3章 教育目的 / 第20-35页
+          hint: ''
+          label: 要学习的章节或范围
+          max_length: 200
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: target_part
+      height: 368
+      id: '1783323231752'
+      position:
+        x: -739.1051966020425
+        y: -433.90149888187307
+      positionAbsolute:
+        x: -739.1051966020425
+        y: -433.90149888187307
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - edition_type: basic
+          id: 03f66cbb-50c2-4819-8e6c-e25fbff56ab0
+          role: system
+          text: '你是一名备考教育产品中的教材解析专家。
+
+
+            请根据用户提供的教材材料，完成学习内容解析。
+
+
+
+            {{#1783323231752.exam_type#}}
+
+
+            {{#1783323231752.subject#}}
+
+
+            {{#1783323231752.book_name#}}
+
+
+            {{#1783323231752.study_scope#}}
+
+
+            {{#1784432146276.text#}}
+
+
+            请先判断用户要学习的是：
+
+            1. 整本书
+
+            2. 指定章节
+
+            3. 指定页码/范围
+
+
+            然后根据学习范围输出对应内容。
+
+
+            请输出：
+
+            1. 本次学习范围判断
+
+            2. 如果是整本书：输出全书目录/知识框架和建议学习顺序
+
+            3. 如果是指定章节：输出该章节主题、章节层级和知识结构
+
+            4. 主要概念与概念关系
+
+            5. 本部分在考试复习中的作用
+
+            6. 信息不足时，需要用户补充什么
+
+
+            要求：
+
+            - 优先使用用户上传文件或粘贴正文中的内容
+
+            - 如果用户选择指定章节，但上传的是整本书，请尽量从文本中定位相关章节
+
+            - 不得编造教材中不存在的章节
+
+            - 如果无法定位指定章节，请明确说明，并建议用户粘贴该章节正文
+
+            - 输出使用 Markdown'
+        selected: false
+        structured_output_enabled: false
+        title: 章节结构解析
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1783324883389'
+      position:
+        x: -446.52524938035884
+        y: -281.69956023234073
+      positionAbsolute:
+        x: -446.52524938035884
+        y: -281.69956023234073
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 90b5c7ba-2925-42a1-a667-03defb153eec
+          role: system
+          text: '你是一名考研辅导老师，擅长从教材内容中提炼考试重点、理解难点和易错点。
+
+
+            请基于以下信息，提炼本章重难点。
+
+
+            【章节结构解析结果】
+
+            {{{#1783324883389.text#}}t}}
+
+
+            【原始章节内容】
+
+            {{chapter_text}}
+
+
+            请输出：
+
+            1. 考研重点知识点
+
+            2. 理解难点
+
+            3. 易混淆点
+
+            4. 易错表达
+
+            5. 可能考查方式
+
+            6. 建议优先掌握顺序
+
+
+            要求：
+
+            - 按重要程度排序
+
+            - 每个重点说明为什么重要
+
+            - 用适合考研学生复习的表达
+
+            - 不要输出空泛建议'
+        selected: false
+        structured_output_enabled: false
+        title: 重难点提炼
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1783325494248'
+      position:
+        x: -446.52524938035884
+        y: -172.268387870789
+      positionAbsolute:
+        x: -446.52524938035884
+        y: -172.268387870789
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: adf6ee24-5b3b-4a81-b50b-e36f7b8e4d8c
+          role: system
+          text: '你是一名考研笔记整理助手，擅长把教材内容整理成适合背诵和答题的复习材料。
+
+
+            请根据章节解析和重难点内容，生成适合考研复习的背诵笔记。
+
+
+            【章节结构解析】
+
+            {{{#1783324883389.text#}}text}}
+
+
+            【重难点提炼】
+
+            {{{#1783325494248.text#}}text}}
+
+
+            请输出：
+
+            1. 本章背诵框架
+
+            2. 核心概念解释
+
+            3. 必背句式
+
+            4. 简答题答题模板
+
+            5. 关键词清单
+
+            6. 3分钟速记版
+
+
+            要求：
+
+            - 语言简洁
+
+            - 适合直接背诵
+
+            - 有层次感
+
+            - 不要写成大段散文
+
+            - 尽量用“总-分-总”的答题结构'
+        selected: false
+        title: 背诵笔记生成
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1783325724506'
+      position:
+        x: -457.4112947497352
+        y: -44.9666764461672
+      positionAbsolute:
+        x: -457.4112947497352
+        y: -44.9666764461672
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: a2b714ae-9874-4540-8a0b-602a8d66078c
+          role: system
+          text: '你是一名考研命题与学习测评专家。
+
+
+            请根据本章重难点和背诵笔记，为学生生成自测题。
+
+
+            【重难点内容】
+
+            {{{#1783325494248.text#}}
+
+
+            【背诵笔记】
+
+            {{{#1783325724506.text#}}
+
+
+            请生成：
+
+            1. 5道基础概念题
+
+            2. 3道简答题
+
+            3. 2道易混淆判断题
+
+            4. 每道题的参考答案
+
+            5. 每道题对应的知识点
+
+            6. 每道题的难度：基础 / 中等 / 较难
+
+
+            要求：
+
+            - 题目贴近考研复习
+
+            - 答案不要过长
+
+            - 明确标注考查点
+
+            - 不要生成与本章无关的题目'
+        selected: false
+        title: 自测题生成
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1783325812077'
+      position:
+        x: -457.4112947497352
+        y: 76.90449664561928
+      positionAbsolute:
+        x: -457.4112947497352
+        y: 76.90449664561928
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 928f9739-34bf-4c89-9331-854c5148784e
+          role: system
+          text: '你是一名考研学习规划师，擅长根据学生复习阶段和每日可学习时间制定具体计划。
+
+
+            请根据学生当前复习阶段、每日学习时间和本章重难点，为学生生成复习计划。
+
+
+            【当前复习阶段】
+
+            {{study_stage}}
+
+
+            【每日可学习时间】
+
+            {{daily_time}}
+
+
+            【章节结构解析】
+
+            {{{#1783324883389.text#}}
+
+
+            【重难点】
+
+            {{{#1783325494248.text#}}
+
+
+            【背诵笔记】
+
+            {{{#1783325724506.text#}}
+
+
+            【自测题生成】
+
+            {{#1783325812077.text#}}
+
+
+            【答案与解析生成】
+
+            {{#1784366915050.text#}}
+
+
+
+            请输出：
+
+            1. 今日学习任务
+
+            2. 3天复习安排
+
+            3. 7天巩固计划
+
+            4. 每天的学习重点
+
+            5. 每天的自测方式
+
+            6. 复盘建议
+
+            7. 如果时间不够，优先完成哪些任务
+
+
+            要求：
+
+            - 计划要具体到行动
+
+            - 不要只写“复习本章”
+
+            - 要包含看书、背诵、做题、复盘四类任务
+
+            - 计划要符合用户每日可学习时间'
+        selected: false
+        title: 复习计划生成
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1783325985478'
+      position:
+        x: -111.90345218774513
+        y: 190.84105984444858
+      positionAbsolute:
+        x: -111.90345218774513
+        y: 190.84105984444858
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1783324883389'
+          - text
+          value_type: string
+          variable: 知识框架
+        - value_selector:
+          - '1783325494248'
+          - text
+          value_type: string
+          variable: 本书重难点
+        - value_selector:
+          - '1783325724506'
+          - text
+          value_type: string
+          variable: 背诵版笔记
+        - value_selector:
+          - '1783325812077'
+          - text
+          value_type: string
+          variable: 自测题
+        - value_selector:
+          - '1783325985478'
+          - text
+          value_type: string
+          variable: 复习计划
+        - value_selector:
+          - '1784366915050'
+          - text
+          value_type: string
+          variable: 答案与解析
+        selected: false
+        title: 输出
+        type: end
+      height: 218
+      id: '1783327878454'
+      position:
+        x: 179.21142825950608
+        y: -119.72952321346287
+      positionAbsolute:
+        x: 179.21142825950608
+        y: -119.72952321346287
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: dd7fe0b0-d8c9-4995-a089-957ea1895b3c
+          role: system
+          text: '你是一名备考答案解析老师。
+
+
+            请严格根据“自测题生成”节点输出的题目逐题生成答案与解析。不得重新生成题目，不得改变题号。
+
+            输入：
+
+            自测题：
+
+            {{quiz_questions}}
+
+            重点知识：
+
+            {{key_points}}
+
+            原始章节内容：
+
+            {{chapter_text}}
+
+
+            输出：
+
+            请逐题输出：题号，参考答案，解析，对应知识点，答题提醒
+
+
+            约束：
+
+            必须与原题一一对应。
+
+            禁止生成另一套题目。
+
+            解析必须说明依据。
+
+            如果题目依据不足，请说明“依据不足，建议回看原文”。
+
+            '
+        selected: false
+        title: 答案与解析生成
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1784366915050'
+      position:
+        x: -477.42558726321687
+        y: 190.84105984444858
+      positionAbsolute:
+        x: -477.42558726321687
+        y: 190.84105984444858
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_array_file: false
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - '1783323231752'
+        - study_file
+      height: 104
+      id: '1784432146276'
+      position:
+        x: -441.7288269082134
+        y: -412.90149888187307
+      positionAbsolute:
+        x: -441.7288269082134
+        y: -412.90149888187307
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 675.8685349742857
+      y: 355.21580314991564
+      zoom: 0.8289511658095279
+  rag_pipeline_variables: []
