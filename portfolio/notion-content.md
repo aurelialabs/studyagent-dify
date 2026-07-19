@@ -2,7 +2,7 @@
 
 ## 1. 项目封面
 
-建议使用 `assets/product-cover.png` 作为项目封面。
+使用 `assets/product-cover.png` 作为项目封面。
 
 ## 2. 一句话介绍
 
