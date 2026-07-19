@@ -9,7 +9,6 @@
 - 技术实现：Dify Workflow 多节点编排 + Prompt Engineering
 - 可复用交付：提供可导入的 Dify DSL 文件
 - Demo：<https://udify.app/workflow/Ml6LKD4l0pltIw54q>
-- 作品集链接：待补充
 
 ## 产品预览
 
@@ -140,9 +139,7 @@ studyagent/
 │   └── workflow-guide.md
 ├── docs/
 ├── assets/
-├── prompts/
-├── portfolio/
-└── resume/
+└── prompts/
 ```
 
 ## 使用和导入方法
@@ -187,8 +184,7 @@ studyagent/
 
 ## 项目负责人和联系方式
 
-- 项目负责人：肖依婷
+- 项目负责人：Aurelia
 - GitHub：<https://github.com/aurelialabs>
 - 项目仓库：<https://github.com/aurelialabs/studyagent-dify>
-- 邮箱/作品集：待补充
-
+- 联系方式：待补充
